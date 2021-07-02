@@ -4,9 +4,11 @@ import re
 import requests
 import pymongo
 import ssl
+import os
 
+mongo_key = os.environ.get("MONGO")
 db_client = pymongo.MongoClient(
-    "MONGO",
+    mongo_key,
     ssl_cert_reqs=ssl.CERT_NONE
 )
 
@@ -1759,4 +1761,5 @@ async def on_ready():
 
 
 if __name__ == "__main__":
-    bot.run('KEY')
+    bot_key = os.environ.get("KEY")
+    bot.run(bot_key)
