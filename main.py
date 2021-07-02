@@ -1348,9 +1348,127 @@ async def add_college(ctx, *, text: str):
             clg_role = discord.utils.get(guild.roles, name=clg)
             if not clg_role:
                 
-                await guild.create_role(name=clg, permissions=discord.Permissions(read_messages=True), colour=discord.Colour.blue(), mentionable=True, reason="Add college "+clg)
-                clg_role = discord.utils.get(guild.roles, name=clg)
-                await ctx.send("Created Role "+str(clg_role))
+                await guild.create_role(name=clg, permissions = clgStd_, colour=discord.Colour.blue(), mentionable=True, reason="Add college "+clg)
+                clg_std_role = discord.utils.get(guild.roles, name=clg)
+                await ctx.send("Created Role "+str(clg_std_role))
+                
+                lead_name = str(clg)+" | Lead"
+                await guild.create_role(name=lead_name, permissions = clg_lead_, colour=discord.Colour.dark_gold(), mentionable=True, reason="Add college lead"+clg)
+                clg_lead_role = discord.utils.get(guild.roles, name=lead_name)
+                await ctx.send("Created Role "+str(clg_lead_role))
+
+                admin_role = discord.utils.find(lambda m: m.name == "admin", guild.roles)
+                tezos_team_role = discord.utils.find(lambda m: m.name == "Tezos Team", guild.roles)
+                moderator_role = discord.utils.find(lambda m: m.name == "Moderator", guild.roles)
+                mentor_role = discord.utils.find(lambda m: m.name == "Mentor", guild.roles)
+                community_lead_role = discord.utils.find(lambda m: m.name == "Community Lead", guild.roles)
+                senior_dev_role = discord.utils.find(lambda m: m.name == "Senior Dev", guild.roles)
+                junior_dev_role = discord.utils.find(lambda m: m.name == "Junior Dev", guild.roles)
+                member_role = discord.utils.find(lambda m: m.name == "Member", guild.roles)
+                clg_lead_role = discord.utils.find(lambda m: m.name == lead_name, guild.roles)
+                clg_std_role = discord.utils.find(lambda m: m.name == clg, guild.roles)
+
+                overwrite_ctg = {
+                    admin_role: admin_clg_ctg, 
+                    tezos_team_role: tezos_team_clg_ctg, 
+                    moderator_role: moderator_clg_ctg, 
+                    mentor_role: mentor_clg_ctg, 
+                    community_lead_role: community_lead_clg_ctg, 
+                    senior_dev_role: senior_dev_clg_ctg, 
+                    junior_dev_role: junior_dev_clg_ctg, 
+                    member_role: member_clg_ctg, 
+                    clg_std_role: clgStd_clg_ctg, 
+                    clg_lead_role: lead_clg_ctg, 
+                    guild.default_role: discord.PermissionOverwrite(
+                        view_channel=False, 
+                        connect = False, 
+                    )
+                } 
+                ctg = await guild.create_category_channel(name=clg, overwrites = overwrite_ctg)
+                await ctx.send("Created Category "+str(ctg))
+                
+
+                anc_ovwrt = {
+                    admin_role: admin_clg_anc, 
+                    tezos_team_role: tezos_team_clg_anc, 
+                    moderator_role: moderator_clg_anc, 
+                    mentor_role: mentor_clg_anc, 
+                    community_lead_role: community_lead_clg_anc, 
+                    senior_dev_role: senior_dev_clg_anc, 
+                    junior_dev_role: junior_dev_clg_anc, 
+                    member_role: member_clg_anc, 
+                    clg_std_role: clgStd_clg_anc, 
+                    clg_lead_role: lead_clg_anc, 
+                    guild.default_role: discord.PermissionOverwrite(
+                        view_channel=False, 
+                        connect = False, 
+                    )
+                }
+                chnl_anc = await guild.create_text_channel(name="Announcements", overwrites = anc_ovwrt, category = ctg)
+                await ctx.send("Created Announcement Channel "+str(chnl_anc))
+                
+                
+                dev_ovwrt = {
+                    admin_role: admin_clg_dev, 
+                    tezos_team_role: tezos_team_clg_dev, 
+                    moderator_role: moderator_clg_dev, 
+                    mentor_role: mentor_clg_dev, 
+                    community_lead_role: community_lead_clg_dev, 
+                    senior_dev_role: senior_dev_clg_dev, 
+                    junior_dev_role: junior_dev_clg_dev, 
+                    member_role: member_clg_dev, 
+                    clg_std_role: clgStd_clg_dev, 
+                    clg_lead_role: lead_clg_dev, 
+                    guild.default_role: discord.PermissionOverwrite(
+                        view_channel=False, 
+                        connect = False, 
+                    )
+                }
+                chnl_dev = await guild.create_text_channel(name="Developers", overwrites = dev_ovwrt, category = ctg)
+                await ctx.send("Created Developer Channel "+str(chnl_dev))
+                
+
+                disc_ovwrt = {
+                    admin_role: admin_clg_disc, 
+                    tezos_team_role: tezos_team_clg_disc, 
+                    moderator_role: moderator_clg_disc, 
+                    mentor_role: mentor_clg_disc, 
+                    community_lead_role: community_lead_clg_disc, 
+                    senior_dev_role: senior_dev_clg_disc, 
+                    junior_dev_role: junior_dev_clg_disc, 
+                    member_role: member_clg_disc, 
+                    clg_std_role: clgStd_clg_disc, 
+                    clg_lead_role: lead_clg_disc, 
+                    guild.default_role: discord.PermissionOverwrite(
+                        view_channel=False, 
+                        connect = False, 
+                    )
+                }
+                chnl_disc = await guild.create_text_channel(name="Discussion", overwrites = disc_ovwrt, category = ctg)
+                await ctx.send("Created Discussion Channel "+str(chnl_disc))
+                
+
+                voice_ovwrt ={
+                    admin_role: admin_clg_voice, 
+                    tezos_team_role: tezos_team_clg_voice, 
+                    moderator_role: moderator_clg_voice, 
+                    mentor_role: mentor_clg_voice, 
+                    community_lead_role: community_lead_clg_voice, 
+                    senior_dev_role: senior_dev_clg_voice, 
+                    junior_dev_role: junior_dev_clg_voice, 
+                    member_role: member_clg_voice, 
+                    clg_std_role: clgStd_clg_voice, 
+                    clg_lead_role: lead_clg_voice, 
+                    guild.default_role: discord.PermissionOverwrite(
+                        view_channel=False, 
+                        connect = False, 
+                    )
+                }
+                chnl_voice = await guild.create_voice_channel(name="Voice", overwrites = voice_ovwrt, category = ctg)
+                await ctx.send("Created Discussion Channel "+str(chnl_voice))
+                
+
+                await ctx.send("**MAKE SURE TO SET ROLE POSITION.**")
             else:
                 await ctx.send("Role Already Exists "+str(clg_role))
             return
@@ -1581,59 +1699,63 @@ def get_instagram_html(INSTAGRAM_USERNAME):
 
 MY_CHANNEL_ID = 859902674596921364
 
-
 @bot.event
 async def on_ready():
     global channel
     global guild
     guild = await bot.fetch_guild(859794440625192970)
-
-    while True:
-        if not channel:
-            channel = bot.get_channel(MY_CHANNEL_ID)  # access to channel
-            brk = await bot.fetch_channel(MY_CHANNEL_ID)
-        if not channel:
-            print("[on_ready] can't access channel:", MY_CHANNEL_ID)
-            brk = await bot.fetch_channel(MY_CHANNEL_ID)
-        else:
-            clg_db = db.colleges.find()
-            social_db = db.social_.find()
-            visited_ = db["visited_"]
-            brk = await bot.fetch_channel(MY_CHANNEL_ID)
-            for _name in list(clg_db):
-
-                clg_name = _name["college_name"]
+    channel = bot.get_channel(MY_CHANNEL_ID)
+    try:
+        while True:
+            if not channel:
+                channel = bot.get_channel(MY_CHANNEL_ID)  # access to channel
                 brk = await bot.fetch_channel(MY_CHANNEL_ID)
-                for _social in list(social_db):
+            if not channel:
+                print("[on_ready] can't access channel:", MY_CHANNEL_ID)
+                brk = await bot.fetch_channel(MY_CHANNEL_ID)
+            else:
+                clg_db = db.colleges.find()
+                social_db = db.social_.find()
+                visited_ = db["visited_"]
+                brk = await bot.fetch_channel(MY_CHANNEL_ID)
+                for _name in list(clg_db):
+
+                    clg_name = _name["college_name"]
                     brk = await bot.fetch_channel(MY_CHANNEL_ID)
-                    if _social["college_name"] == clg_name:
-
-                        social_insta = _social["instagram_"]
-                        insta_id = str(social_insta).replace(
-                            "https://www.instagram.com", "").replace("/", "")
-                        html = get_instagram_html(insta_id)
-                        visited_db = db.visited_.find()
-                        visit_link = [_link["link"] for _link in visited_db]
+                    for _social in list(social_db):
                         brk = await bot.fetch_channel(MY_CHANNEL_ID)
-                        if(get_last_publication_url(html) in visit_link):
+                        if _social["college_name"] == clg_name:
+
+                            social_insta = _social["instagram_"]
                             brk = await bot.fetch_channel(MY_CHANNEL_ID)
+                            if social_insta != "":
+                                insta_id = str(social_insta).replace(
+                                    "https://www.instagram.com", "").replace("/", "")
+                                html = get_instagram_html(insta_id)
+                                visited_db = db.visited_.find()
+                                visit_link = [_link["link"] for _link in visited_db]
+                                brk = await bot.fetch_channel(MY_CHANNEL_ID)
+                                if(get_last_publication_url(html) in visit_link):
+                                    brk = await bot.fetch_channel(MY_CHANNEL_ID)
 
-                        else:
-                            id_ = visited_.insert_one(
-                                {"link": get_last_publication_url(html)})
-                            em = discord.Embed(color=15467852,
-                                               title="Post by @"+insta_id+"",
-                                               url="https://www.instagram.com/p/" +
-                                               get_last_publication_url(
-                                                   html)+"/",
-                                               description=get_description_photo(
-                                                   html),
-                                               image=get_last_photo_url(html),
-                                               thumbnail=get_last_thumb_url(
-                                                   html),
-                                               )
+                                else:
+                                    id_ = visited_.insert_one(
+                                        {"link": get_last_publication_url(html)})
+                                    em = discord.Embed(color=15467852,
+                                                    title="Post by @"+insta_id+"",
+                                                    url="https://www.instagram.com/p/" +
+                                                    get_last_publication_url(
+                                                        html)+"/",
+                                                    description=get_description_photo(
+                                                        html),
+                                                    image=get_last_photo_url(html),
+                                                    thumbnail=get_last_thumb_url(
+                                                        html),
+                                                    )
 
-                            await channel.send(embed=em)
+                                    await channel.send(embed=em)
+    except Exception as e:
+        await channel.send("Inform **Admins** that Bot Crashed.")
 
 
 if __name__ == "__main__":
