@@ -1927,4 +1927,4 @@ async def on_ready():
         
 if __name__ == "__main__":
     bot_key = os.environ.get("DISCORD")
-    bot.run('bot_key')
+    bot.run(bot_key)
