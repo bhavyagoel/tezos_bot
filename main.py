@@ -1353,7 +1353,7 @@ async def check_bot(ctx):
     await ctx.send('Bot is Alive!')
 
 @bot.command(pass_context = True)
-async def help(ctx):
+async def bot_help(ctx):
     embed=discord.Embed(title="Tezos Bot Commands", url="https://github.com/bhavyagoel/tezos_bot", description="This is an utility bot to server Tezos Developer Hub Discord Server.", color=0x4400ff)
     embed.set_author(name="Bhavya Goel", url="https://github.com/bhavyagoel", icon_url="https://avatars.githubusercontent.com/u/12731278?v=4")
     embed.set_thumbnail(url="https://raw.githubusercontent.com/bhavyagoel/tezos_bot/main/619.png")
