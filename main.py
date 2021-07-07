@@ -13,7 +13,7 @@ import asyncio
 import tweepy
 import os
 
-#Twitter Client
+# Twitter Client
 twitter_consumer_key = os.environ.get("TWITTER_CONSUMER_KEY")
 twitter_consumer_secret = os.environ.get("TWITTER_CONSUMER_SECRET")
 tweet_auth = tweepy.OAuthHandler(twitter_consumer_key, twitter_consumer_secret)
@@ -1352,18 +1352,29 @@ print("********** BOT ACTIVATED **********")
 async def check_bot(ctx):
     await ctx.send('Bot is Alive!')
 
-@bot.command(pass_context = True)
+
+@bot.command(pass_context=True)
 async def bot_help(ctx):
-    embed=discord.Embed(title="Tezos Bot Commands", url="https://github.com/bhavyagoel/tezos_bot", description="This is an utility bot to server Tezos Developer Hub Discord Server.", color=0x4400ff)
-    embed.set_author(name="Bhavya Goel", url="https://github.com/bhavyagoel", icon_url="https://avatars.githubusercontent.com/u/12731278?v=4")
-    embed.set_thumbnail(url="https://raw.githubusercontent.com/bhavyagoel/tezos_bot/main/619.png")
-    embed.add_field(name="--check_bot", value="Checks if the bot is working.", inline=False)
-    embed.add_field(name="--add_college clg_name", value="Used to insert a new college to the server, can only be executed by **Admins**. Special Characters are not allowed in college name. *Eg - --add_college vit, vellore*", inline=False)
-    embed.add_field(name="--set_college @user clg_name", value="Used to access college specific channels in the server. *Eg - --set_college @bhavya vit, vellore*", inline=False)
-    embed.add_field(name="--set_lead @user clg_name", value="Used to update college lead in the server, can only be executed by **Admins**. Special Characters are not allowed in college name. *Eg - --set_lead @bhavya vit, vellore*", inline=False)
-    embed.add_field(name="--set_db @lead @clg_role links", value="Used to update college social links in the server, can only be executed by **Admins**. *Eg - --set_db @bhavya @vit_vellore https://www.instagram.com/tdc_vellore/*", inline=False)
-    embed.set_footer(text="If you face any difficulties with the commands feel free to open an issue in the GitHub Repository.")
+    embed = discord.Embed(title="Tezos Bot Commands", url="https://github.com/bhavyagoel/tezos_bot",
+                          description="This is an utility bot to server Tezos Developer Hub Discord Server.", color=0x4400ff)
+    embed.set_author(name="Bhavya Goel", url="https://github.com/bhavyagoel",
+                     icon_url="https://avatars.githubusercontent.com/u/12731278?v=4")
+    embed.set_thumbnail(
+        url="https://raw.githubusercontent.com/bhavyagoel/tezos_bot/main/619.png")
+    embed.add_field(name="--check_bot",
+                    value="Checks if the bot is working.", inline=False)
+    embed.add_field(name="--add_college clg_name",
+                    value="Used to insert a new college to the server, can only be executed by **Admins**. Special Characters are not allowed in college name. *Eg - --add_college vit, vellore*", inline=False)
+    embed.add_field(name="--set_college @user clg_name",
+                    value="Used to access college specific channels in the server. *Eg - --set_college @bhavya vit, vellore*", inline=False)
+    embed.add_field(name="--set_lead @user clg_name",
+                    value="Used to update college lead in the server, can only be executed by **Admins**. Special Characters are not allowed in college name. *Eg - --set_lead @bhavya vit, vellore*", inline=False)
+    embed.add_field(name="--set_db @lead @clg_role links",
+                    value="Used to update college social links in the server, can only be executed by **Admins**. *Eg - --set_db @bhavya @vit_vellore https://www.instagram.com/tdc_vellore/*", inline=False)
+    embed.set_footer(
+        text="If you face any difficulties with the commands feel free to open an issue in the GitHub Repository.")
     await ctx.send(embed=embed)
+
 
 @bot.command(pass_context=True)
 async def add_college(ctx, *, text: str):
@@ -1767,7 +1778,7 @@ async def twitter_(channel):
             social_db = db.social_.find()
             visited_ = db["visited_"]
             brk = await bot.fetch_channel(MY_CHANNEL_ID)
-            
+
             for _social in list(social_db):
                 clg_name = _social["college_name"]
                 social_twitter = _social["twitter_"]
@@ -1783,30 +1794,31 @@ async def twitter_(channel):
                     if tweets:
                         visited_db = db.visited_.find()
                         visit_link = [_link["link"]
-                                        for _link in visited_db]
+                                      for _link in visited_db]
                         brk = await bot.fetch_channel(MY_CHANNEL_ID)
                         for tweet in tweets:
                             alpha = tweet._json
-                            tweet_url = "https://twitter.com/twitter/statuses/" + alpha["id_str"]
+                            tweet_url = "https://twitter.com/twitter/statuses/" + \
+                                alpha["id_str"]
                             try:
                                 if(str(tweet_url) in visit_link):
                                     brk = await bot.fetch_channel(MY_CHANNEL_ID)
 
                                 else:
-                                    
+
                                     id_ = visited_.insert_one(
                                         {
                                             "link": tweet_url
                                         }
                                     )
-                                    
+
                                     em = discord.Embed(color=15467852,
-                                                        title="Tweet by @"+twitter_id+"",
-                                                        url=tweet_url,
-                                                        description=alpha["full_text"],
-                                                        image=alpha["entities"]["media"][0]["media_url_https"],
-                                                        thumbnail=alpha["entities"]["media"][0]["media_url_https"],
-                                                    )
+                                                       title="Tweet by @"+twitter_id+"",
+                                                       url=tweet_url,
+                                                       description=alpha["full_text"],
+                                                       image=alpha["entities"]["media"][0]["media_url_https"],
+                                                       thumbnail=alpha["entities"]["media"][0]["media_url_https"],
+                                                       )
                                     await channel.send(embed=em)
 
                             except:
@@ -1820,13 +1832,13 @@ async def twitter_(channel):
                                         }
                                     )
                                     em = discord.Embed(color=15467852,
-                                                    title="Tweet by @"+twitter_id+"",
-                                                    url=tweet_url,
-                                                    description=alpha["full_text"],
-                                                    )
+                                                       title="Tweet by @"+twitter_id+"",
+                                                       url=tweet_url,
+                                                       description=alpha["full_text"],
+                                                       )
 
                                     await channel.send(embed=em)
-                                
+
             await asyncio.sleep(900)  # Sleep 15 Minutes for each Update
     except Exception as e:
         await channel.send("Inform **Admins** that Bot has crashed. **Tweepy Failed**")
@@ -1837,6 +1849,7 @@ async def twitter_(channel):
 # LinkedIN
 
 # Instagram
+
 
 def get_user_fullname(html):
     return html.json()["graphql"]["user"]["full_name"]
@@ -1875,46 +1888,42 @@ def get_instagram_html(INSTAGRAM_USERNAME):
 async def instagram_(channel):
     try:
         while True:
-            clg_db = db.colleges.find()
             social_db = db.social_.find()
             visited_ = db["visited_"]
-            brk = await bot.fetch_channel(MY_CHANNEL_ID)
-            for _name in list(clg_db):
-                clg_name = _name["college_name"]
-                brk = await bot.fetch_channel(MY_CHANNEL_ID)
-                for _social in list(social_db):
+
+            for _social in list(social_db):
+                social_insta = _social["instagram_"]
+                if social_insta != "":
+                    insta_id = str(social_insta).replace(
+                        "https://www.instagram.com", "").replace("/", "")
+                    html = get_instagram_html(insta_id)
+                    visited_db = db.visited_.find()
+                    visit_link = [_link["link"]
+                                  for _link in visited_db]
                     brk = await bot.fetch_channel(MY_CHANNEL_ID)
-                    if _social["college_name"] == clg_name:
-                        social_insta = _social["instagram_"]
+                    if(get_last_publication_url(html) in visit_link):
                         brk = await bot.fetch_channel(MY_CHANNEL_ID)
-                        if social_insta != "":
-                            insta_id = str(social_insta).replace(
-                                "https://www.instagram.com", "").replace("/", "")
-                            html = get_instagram_html(insta_id)
-                            visited_db = db.visited_.find()
-                            visit_link = [_link["link"]
-                                          for _link in visited_db]
-                            brk = await bot.fetch_channel(MY_CHANNEL_ID)
-                            if(get_last_publication_url(html) in visit_link):
-                                brk = await bot.fetch_channel(MY_CHANNEL_ID)
 
-                            else:
-                                id_ = visited_.insert_one(
-                                    {"link": get_last_publication_url(html)})
-                                em = discord.Embed(color=15467852,
-                                                   title="Post by @"+insta_id+"",
-                                                   url="https://www.instagram.com/p/" +
-                                                   get_last_publication_url(
-                                                       html)+"/",
-                                                   description=get_description_photo(
-                                                       html),
-                                                   image=get_last_photo_url(
-                                                       html),
-                                                   thumbnail=get_last_thumb_url(
-                                                       html),
-                                                   )
+                    else:
+                        try:
+                            id_ = visited_.insert_one(
+                                {"link": get_last_publication_url(html)})
+                            em = discord.Embed(color=15467852,
+                                               title="Post by @"+insta_id+"",
+                                               url="https://www.instagram.com/p/" +
+                                               get_last_publication_url(
+                                                   html)+"/",
+                                               description=get_description_photo(
+                                                   html),
+                                               image=get_last_photo_url(
+                                                   html),
+                                               thumbnail=get_last_thumb_url(
+                                                   html),
+                                               )
 
-                                await channel.send(embed=em)
+                            await channel.send(embed=em)
+                        except Exception as e:
+                            print(e)
             await asyncio.sleep(600)  # Sleep 10 Minutes for each Update
     except Exception as e:
         await channel.send("Inform **Admins** that Bot has crashed. **Insta Scrapper Failed**")
@@ -1936,7 +1945,7 @@ async def on_ready():
         bot.loop.create_task(initialise_(channel))
         bot.loop.create_task(twitter_(channel))
         bot.loop.create_task(instagram_(channel))
-        
+
 if __name__ == "__main__":
     bot_key = os.environ.get("DISCORD")
     bot.run(bot_key)
