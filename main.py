@@ -34,7 +34,7 @@ db = db_client["tezosGuild"]
 
 
 # Discord Client
-bot = commands.Bot(command_prefix='>')
+bot = commands.Bot(command_prefix='--')
 # discord_client = discord.Client()
 
 channel = None   # set default value at start
