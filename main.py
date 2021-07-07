@@ -1352,6 +1352,18 @@ print("********** BOT ACTIVATED **********")
 async def check_bot(ctx):
     await ctx.send('Bot is Alive!')
 
+@bot.command(pass_context = True)
+async def help(ctx):
+    embed=discord.Embed(title="Tezos Bot Commands", url="https://github.com/bhavyagoel/tezos_bot", description="This is an utility bot to server Tezos Developer Hub Discord Server.", color=0x4400ff)
+    embed.set_author(name="Bhavya Goel", url="https://github.com/bhavyagoel", icon_url="https://avatars.githubusercontent.com/u/12731278?v=4")
+    embed.set_thumbnail(url="https://raw.githubusercontent.com/bhavyagoel/tezos_bot/main/619.png")
+    embed.add_field(name="--check_bot", value="Checks if the bot is working.", inline=False)
+    embed.add_field(name="--add_college clg_name", value="Used to insert a new college to the server, can only be executed by **Admins**. Special Characters are not allowed in college name. *Eg - --add_college vit, vellore*", inline=False)
+    embed.add_field(name="--set_college @user clg_name", value="Used to access college specific channels in the server. *Eg - --set_college @bhavya vit, vellore*", inline=False)
+    embed.add_field(name="--set_lead @user clg_name", value="Used to update college lead in the server, can only be executed by **Admins**. Special Characters are not allowed in college name. *Eg - --set_lead @bhavya vit, vellore*", inline=False)
+    embed.add_field(name="--set_db @lead @clg_role links", value="Used to update college social links in the server, can only be executed by **Admins**. *Eg - --set_db @bhavya @vit_vellore https://www.instagram.com/tdc_vellore/*", inline=False)
+    embed.set_footer(text="If you face any difficulties with the commands feel free to open an issue in the GitHub Repository.")
+    await ctx.send(embed=embed)
 
 @bot.command(pass_context=True)
 async def add_college(ctx, *, text: str):
@@ -1551,7 +1563,7 @@ async def set_college(ctx, user: discord.User, *, text: str):
 
 
 @bot.command(pass_context=True)
-async def set_college_lead(ctx, user: discord.User, *, text: str):
+async def set_lead(ctx, user: discord.User, *, text: str):
     try:
         guild = ctx.guild
         member_id = user.id
