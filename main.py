@@ -1577,13 +1577,14 @@ async def set_college(ctx, user: discord.User, *, text: str):
 async def set_lead(ctx, user: discord.User, *, text: str):
     try:
         guild = ctx.guild
+        admin_ = ctx.author
         member_id = user.id
         member = await guild.fetch_member(member_id)
 
         channel = ctx.channel
         clg = text.replace(" ", "").replace(",", "_").lower()
         regex = re.compile('[@!#$%^&*()<>?/\|}{~:]')
-        roles = [str(i) for i in member.roles]
+        roles = [str(i) for i in admin_.roles]
         if "admin" in roles:
             if not(regex.search(clg) == None):
                 await ctx.send("Wrong College Name!! \nContact **Admin**, or read guidelines again.")
